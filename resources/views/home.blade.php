@@ -41,5 +41,6 @@
                 @endforeach
             @endforeach
          </ul>
+         {{ dd($db) }}
     </div>
 @endsection
