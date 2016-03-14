@@ -44,6 +44,11 @@ class NiceActionController extends Controller
         $action->save();
         
         $actions = NiceAction::all();
+        
+        if ($request->ajax()){
+            return response()->json();
+        }
+        
         return redirect()->route('home', ['action' => $actions]);
         //return view('home', ['actions' => $actions]);
 
