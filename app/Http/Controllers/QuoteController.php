@@ -39,4 +39,21 @@ class QuoteController extends Controller
                 'success' => 'Quote saved!'
             ]);
     }
+    
+    public function getDeleteQuote($quote_id)
+    {
+        $quote = Quote::find($quote_id);
+        $author_deleted = false;
+        //$quote = Quote::where('id', $quote_id)->first();
+        //above two lines do exactly the same thing
+        
+        if (count($quote->author->quotes) === 1){
+            $quote->author->delete();
+            $author_deleted = true;
+        }
+        
+        $quote->delete();
+        $msg = $author_deleted ? 'Quote & Author Deleted!' : 'Quote deleted!';
+        return redirect()->route('index')->with(['success' => $msg]);
+    }
 }
