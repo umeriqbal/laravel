@@ -6,15 +6,28 @@
         text-align:left;
     }
 </style>
-<form method="post" action="">
+@if(count($errors) > 0)
+    <section class="info-box fail">
+        @foreach($errors->all() as $error)
+            {{ $error}}
+        @endforeach
+    </section>
+@endif
+@if(Session::has('fail'))
+    <section class="info-box fail">
+        {{ Session::get('fail') }}
+    </section>
+@endif
+<form method="post" action="{{ route('admin.login') }}">
      <div class="input-group">
         <label for="name">Your Name</label>
-        <input type="text" name="author" id="author" placeholder="Your Name" />
+        <input type="text" name="name" id="name" placeholder="Your Name" />
     </div>
      <div class="input-group">
         <label for="password">Your Password</label>
         <input type="password" name="password" id="password" placeholder="Your Passworde" />
     </div>
     <button type="submit">Submit</button>
+    <input type="hidden" name="_token" value="{{ Session::token() }}">
 </form>
 @endsection
