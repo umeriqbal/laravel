@@ -29,7 +29,8 @@ class QuoteController extends Controller
     {
         $this->validate($request, [
                 'author' => 'required|max:60|alpha',
-                'quote' => 'required|max:500|'
+                'quote' => 'required|max:500|',
+                'email' => 'required|email'
             ]);
             
         $authorText = ucfirst($request['author']);
@@ -39,6 +40,7 @@ class QuoteController extends Controller
         if (!$author){
             $author = new Author();
             $author->name = $authorText;
+            $author->email = $request['email'];
             $author->save();
         }
         
